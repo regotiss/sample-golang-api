@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Hello")
+	router := InitilizeRoutes()
+	err := http.ListenAndServe(":8085", router)
+	if err != nil {
+		fmt.Println("Could not start the server. Error: ", err)
+	}
 }
