@@ -8,6 +8,9 @@ start_db:
 migrate:
 	docker run --rm --network host -v $(WORK_DIR)/migration:/migrations migrate/migrate -path /migrations/ -database "${DB_URL}" up
 
-start: 
+start: start-db migrate
 	go build
 	./sample	
+
+cleanup:
+	docker kill $(docker ps -qa -f status=running)	
